@@ -1,25 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { fetchFollows, fetchMembers, removeFollowing, saveFollowing } from './api';
 import './App.css';
+import MemberList from './MemberList';
 
 function App() {
+  const [members, setMembers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [followIDs, setFollowIDs] = useState([]);
+
+  function changeFollow(id, remove){
+    if(remove){  
+      removeFollowing(id)
+      .then(() => {
+        const filteredFollowing = following.filter((follow) => {
+          return follow.id !== id;
+        });
+
+        setFollowing(filteredFollowing);
+      });
+    }
+    else{
+      saveFollowing({
+        id,
+      })
+        .then((newFollow) => {
+          setFollowing(following.concat(newFollow.id));
+        });
+    }
+  }
+
+
+  useEffect(() => {
+    setMembers([]);
+    Promise.all([fetchFollows(), fetchMembers()])
+      .then(([followingData, data]) => {
+        setFollowing(followingData);
+        setMembers(data);
+        setFollowIDs(followingData.map((follow) => {
+          return follow.id;
+        }))
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MemberList members={members} following={followIDs} changeFollow={changeFollow}></MemberList>
   );
 }
 
