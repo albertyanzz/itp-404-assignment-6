@@ -41,9 +41,17 @@ body.modal-open {
   overflow: hidden;
 }
 
+.modal {
+  overflow-y:auto;
+}
+
 .avatar {
   border: 1px solid grey;
   margin: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .loader,
