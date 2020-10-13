@@ -17,7 +17,7 @@ export default function MemberList({members, changeFollow}){
         for (const[index, value] of members.entries()){
             setAvatars(avatars => [...avatars, <Avatar key={index} member={value} following={followIDs} setFollow={changeFollow}></Avatar>])              
         }
-      }, [members, changeFollow, followIDs]);
+      }, [members, changeFollow]);
 
     return (
       <div style={{width: "50%"}}>
