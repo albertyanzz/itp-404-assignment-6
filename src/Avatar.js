@@ -42,8 +42,8 @@ export default function Avatar({ member, following, setFollow }) {
             <div className="avatar">
                 {profileModalOpen && <MemberModal onClose={hideProfileModal} member={memberDetails} login={member.login}></MemberModal>}
                 {repoModalOpen && <RepoModal onClose={hideRepoModal} repos_url={member.repos_url} login={member.login}></RepoModal>}
-                <img src={member.avatar_url} alt="profile" width="250" onClick={showProfileModal}></img>
-                <a href="javascript: void(0)" onClick={showProfileModal}>{member.login}</a>
+                <img src={member.avatar_url} alt="profile" width="250" style={{cursor: "pointer"}} onClick={showProfileModal}></img>
+                <p style={{cursor: "pointer"}} onClick={showProfileModal}>{member.login}</p>
                 <button onClick={showRepoModal}>Repos</button>
                 <button onClick={changeFollow}>{isFollowing ? "Unfollow" : "Follow"}</button>
             </div>
