@@ -30,12 +30,12 @@ export default function Avatar({ member, following, setFollow }) {
         setIsFollowing(!isFollowing)
     }
 
-    useEffect(() => {    
+    useEffect(() => {
         fetchModalProperties(member.url)
             .then((data) => {
                 setMemberDetails(data);
             })
-    }, [member.url], isFollowing, following);
+    }, [member.url, isFollowing, following]);
 
     return (
         <>
