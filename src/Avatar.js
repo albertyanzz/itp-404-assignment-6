@@ -7,7 +7,7 @@ export default function Avatar({ member, following, setFollow }) {
     const [profileModalOpen, setProfileModalOpen] = useState(false);
     const [repoModalOpen, setRepoModalOpen] = useState(false);
     const [memberDetails, setMemberDetails] = useState();
-    const [isFollowing, setIsFollowing] = useState(following);
+    const [isFollowing, setIsFollowing] = useState(following.includes(member.memberID));
 
     function hideProfileModal(){
         setProfileModalOpen(false);
@@ -30,12 +30,14 @@ export default function Avatar({ member, following, setFollow }) {
         setIsFollowing(!isFollowing)
     }
 
-    useEffect(() => {
+    useEffect(() => {    
+        console.log(following);    
+        console.log(isFollowing);
         fetchModalProperties(member.url)
             .then((data) => {
                 setMemberDetails(data);
             })
-    }, [member.url]);
+    }, [member.url], isFollowing, following);
 
     return (
         <>

@@ -7,11 +7,7 @@ export default function MemberList({members, following, changeFollow}){
     useEffect(() => {
         setAvatars([]);
         for (const[index, value] of members.entries()){
-            const isFollowing = following.includes(value.memberID);
-            if(isFollowing){
-                console.log("FOLLOWING!");
-            }
-            setAvatars(avatars => [...avatars, <Avatar key={index} member={value} following={isFollowing} setFollow={changeFollow}></Avatar>])
+            setAvatars(avatars => [...avatars, <Avatar key={index} member={value} following={following} setFollow={changeFollow}></Avatar>])              
         }
       }, [members, following, changeFollow]);
 
